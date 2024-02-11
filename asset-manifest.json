@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/generic-logger/static/css/main.5bb6dd41.css",
+    "main.js": "/generic-logger/static/js/main.5d3298eb.js",
+    "index.html": "/generic-logger/index.html",
+    "main.5bb6dd41.css.map": "/generic-logger/static/css/main.5bb6dd41.css.map",
+    "main.5d3298eb.js.map": "/generic-logger/static/js/main.5d3298eb.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.5bb6dd41.css",
+    "static/js/main.5d3298eb.js"
+  ]
+}
