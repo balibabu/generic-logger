@@ -1,0 +1,15 @@
+import React, { useState } from 'react'
+
+export default function Category() {
+    const [category, setCategory] = useState(['all', 'recent', 'frequent', 'favorite']);
+    const [selected, setSelected] = useState(0);
+    return (
+        <div className='m-3 flex'>
+            {category.map((cate, index) => <div key={index} className='px-3 cursor-pointer'>
+                <span className={selected === index ? 'underline' : ''}
+                    onClick={() => setSelected(index)}
+                >{cate}</span>
+            </div>)}
+        </div>
+    )
+}
