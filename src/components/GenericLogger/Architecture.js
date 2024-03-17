@@ -4,6 +4,7 @@ import DropdownDots from "../shared/icons/DropdownDots";
 import Edit from "../shared/icons/Edit";
 import MoveDown from "../shared/icons/MoveDown";
 import MoveUp from "../shared/icons/MoveUp";
+import Confirmation from "../shared/utility/Confirmation";
 
 const dummyLoggers = [
     { id: 1, title: 'Logger1', fields: [{ fieldName: "name", fieldType: 'Text' }, { fieldName: "description", fieldType: 'Large Text' }] },
@@ -174,8 +175,8 @@ const genericAppArchi = {
                             itemStyle: 'text-sky-900 text-start px-3 hover:bg-sky-300 w-full',
                             items: [
                                 { title: 'delete', onclick: () => console.log('dropdown delete log') },
-                                { title: 'edit', onclick: () => console.log('dropdown edit log') },
-                                { title: 'other', onclick: () => console.log('dropdown other log') },
+                                // { title: 'edit', onclick: () => console.log('dropdown edit log') },
+                                // { title: 'other', onclick: () => console.log('dropdown other log') },
                             ]
                         }
 
@@ -206,10 +207,12 @@ const controller = {
         });
     },
     deleteLogger: (id) => {
-        genericAppArchi.setState((prev) => {
-            const loggers = prev.models.loggers.filter((logger) => logger.id != id);
-            return { ...prev, models: { ...prev.models, loggers: [...loggers] } }
-        });
+        if (Confirmation('are you sure ?')) {
+            genericAppArchi.setState((prev) => {
+                const loggers = prev.models.loggers.filter((logger) => logger.id != id);
+                return { ...prev, models: { ...prev.models, loggers: [...loggers] } }
+            });
+        }
     },
 
     updateLogger: (updatedLogger) => {
@@ -227,11 +230,13 @@ const controller = {
         });
     },
     deleteLog: (loggerId, logId) => {
-        genericAppArchi.setState((prev) => {
-            const logs = prev.models.logs;
-            const logsOfLoggerId = logs[loggerId] || [];
-            return { ...prev, models: { ...prev.models, logs: { ...logs, [loggerId]: logsOfLoggerId.filter((log) => log.id !== logId) } } }
-        });
+        if (Confirmation('are you sure ?')) {
+            genericAppArchi.setState((prev) => {
+                const logs = prev.models.logs;
+                const logsOfLoggerId = logs[loggerId] || [];
+                return { ...prev, models: { ...prev.models, logs: { ...logs, [loggerId]: logsOfLoggerId.filter((log) => log.id !== logId) } } }
+            });
+        }
     },
 
     updateLog: (loggerId, updatedLog) => {

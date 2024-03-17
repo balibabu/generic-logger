@@ -1,10 +1,10 @@
 import React from 'react'
-import Edit from '../../shared/icons/Edit';
-import Bin from '../../shared/icons/Bin';
-import MoveDown from '../../shared/icons/MoveDown';
-import MoveUp from '../../shared/icons/MoveUp';
+import Edit from '../../../shared/icons/Edit';
+import Bin from '../../../shared/icons/Bin';
+import MoveDown from '../../../shared/icons/MoveDown';
+import MoveUp from '../../../shared/icons/MoveUp';
 
-export default function Fields({ views, fields, setFields, logger, setLogger }) {
+export default function Fields({ views, logger, setLogger, updating, setUpdating }) {
     const onDelete = (indexToDelete) => {
         setLogger((prev) => ({ ...prev, fields: prev.fields.filter((_, index) => index !== indexToDelete) }))
         // setFields(prevFields => prevFields.filter((_, index) => index !== indexToDelete));
@@ -25,7 +25,7 @@ export default function Fields({ views, fields, setFields, logger, setLogger }) 
     };
 
     const onMoveDown = (currentIndex) => {
-        if (currentIndex === fields.length - 1) return;
+        if (currentIndex === logger.fields.length - 1) return;
         setLogger((prev) => {
             const newFields = [...prev.fields];
             [newFields[currentIndex], newFields[currentIndex + 1]] = [newFields[currentIndex + 1], newFields[currentIndex]];
@@ -37,7 +37,7 @@ export default function Fields({ views, fields, setFields, logger, setLogger }) 
         //     return newFields;
         // });
     };
-    
+
     return (
         <div className={views.style}>
             {logger.fields.map((field, index) => {
@@ -47,12 +47,12 @@ export default function Fields({ views, fields, setFields, logger, setLogger }) 
                             <div className={views.item.texts.fieldName}>{field.fieldName}</div>
                             <div className={views.item.texts.fieldType}>{field.fieldType}</div>
                         </div>
-                        <div className={views.item.iconsContainer.style}>
-                            <div className={views.item.iconsContainer.iconStyle}>{views.item.iconsContainer.icons.edit}</div>
+                        {updating === null && <div className={views.item.iconsContainer.style}>
+                            <div className={views.item.iconsContainer.iconStyle} onClick={() => setUpdating(index)}>{views.item.iconsContainer.icons.edit}</div>
                             <div className={views.item.iconsContainer.iconStyle} onClick={() => onDelete(index)}>{views.item.iconsContainer.icons.bin}</div>
                             <div className={views.item.iconsContainer.iconStyle} onClick={() => onMoveUp(index)}>{views.item.iconsContainer.icons.moveUp}</div>
                             <div className={views.item.iconsContainer.iconStyle} onClick={() => onMoveDown(index)}>{views.item.iconsContainer.icons.moveDown}</div>
-                        </div>
+                        </div>}
                     </div>
                 );
             })}

@@ -1,18 +1,32 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
-export default function Form({ views, setFields, loggerName, setLoggerName, logger, setLogger }) {
-    const [fieldName, setFieldName] = useState('');
-    const [fieldType, SetFieldType] = useState('Text');
-    const [dropdownOps, setDropdownOps] = useState('Text, Large Text, Checkbox, Options, Date, Time, Date Time, Key Value Pair, Multiple Select, Radio'.split(','));
+const dummyField = { fieldName: '', fieldType: 'Text' };
+export default function Form({ views, logger, setLogger, dropdownOps, updating, setUpdating }) {
+    const [field, setField] = useState(dummyField);
+
+    useEffect(() => {
+        if (updating !== null) {
+            setField(logger.fields[updating]);
+        }
+    }, [updating])
 
 
     function addField() {
-        if (fieldName && fieldType) {
-            // setFields((prev) => [...prev, { fieldName, fieldType }])
-            setLogger((prev) => ({ ...prev, fields: [{ fieldName, fieldType }, ...prev.fields] }))
-            setFieldName('')
-            SetFieldType('Text')
+        if (field.fieldName && field.fieldType) {
+            setLogger((prev) => ({ ...prev, fields: [field, ...prev.fields] }))
+            setField(dummyField);
         }
+    }
+
+    function update() {
+        setLogger((prev) => ({ ...prev, fields: prev.fields.map((oldField, index) => index === updating ? field : oldField) }));
+        setUpdating(null);
+        setField(dummyField);
+    }
+
+    function cancel() {
+        setUpdating(null);
+        setField(dummyField);
     }
 
     return (
@@ -29,13 +43,20 @@ export default function Form({ views, setFields, loggerName, setLoggerName, logg
                 <input type={views.fieldForm.input.type}
                     className={views.fieldForm.input.style}
                     placeholder={views.fieldForm.input.placeholder}
-                    value={fieldName}
-                    onChange={(e) => setFieldName(e.target.value)}
+                    value={field.fieldName}
+                    onChange={(e) => setField((prev) => ({ ...prev, fieldName: e.target.value }))}
                 />
-                <select className={views.fieldForm.options.style} value={fieldType} onChange={(e) => SetFieldType(e.target.value)}>
+                <select className={views.fieldForm.options.style} value={field.fieldType} onChange={(e) => setField((prev) => ({ ...prev, fieldType: e.target.value }))}>
                     {dropdownOps.map((option, index) => <option key={index} value={option}>{option}</option>)}
                 </select>
-                <button className={views.fieldForm.addBtn.style} onClick={addField}>{views.fieldForm.addBtn.icon}</button>
+                {updating === null ?
+                    <button className={views.fieldForm.addBtn.style} onClick={addField}>{views.fieldForm.addBtn.icon}</button>
+                    :
+                    <>
+                        <button className='bg-sky-500 text-sky-100 px-1 border-e-2 border-sky-900' onClick={update}>update</button>
+                        <button className='bg-sky-500 text-sky-100 px-1' onClick={cancel}>cancel</button>
+                    </>
+                }
             </div>
         </div>
     )

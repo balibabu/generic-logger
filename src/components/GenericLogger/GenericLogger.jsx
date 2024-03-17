@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import TabView from './TabView/TabView'
 import Loggers from './Loggers/Loggers'
-import LoggerEditor from './Loggers/LoggerEditor'
 import { Route, Routes, useLocation } from 'react-router-dom'
 import Logs from './Logs/Logs'
 import LogEditor from './Logs/LogEditor'
+import LoggerEditor from './Loggers/Editor/LoggerEditor'
 
 export default function GenericLogger({ app }) {
     // const [currentRoute, setCurrentRoute] = useState('');
