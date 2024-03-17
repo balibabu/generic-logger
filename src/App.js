@@ -1,16 +1,22 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import GenericLogger from './components/GenericLogger/GenericLogger'
 import { HashRouter, Route, Routes } from 'react-router-dom';
 import { VariableProvider } from './components/context/VariableContext';
+import genericAppArchi from './components/GenericLogger/Architecture';
 
 export default function App() {
-  return (
-    <VariableProvider>
-      <HashRouter>
-        <Routes >
-          <Route path="/*" element={<GenericLogger />} />
-        </Routes>
-      </HashRouter>
-    </VariableProvider>
-  )
+    const [genericApp, setGenericApp] = useState(genericAppArchi);
+    useEffect(() => {
+        genericAppArchi.setState = setGenericApp;
+    }, [])
+
+    return (
+        <VariableProvider>
+            <HashRouter>
+                <Routes >
+                    <Route path="/*" element={<GenericLogger {...{ app: genericApp }} />} />
+                </Routes>
+            </HashRouter>
+        </VariableProvider>
+    )
 }

@@ -1,18 +1,22 @@
 import React from 'react'
-import Create from '../../shared/icons/Create'
 import { useNavigate } from 'react-router-dom';
+import LogItem from './LogItem';
 
-export default function LogRender() {
+export default function LogRender({ views, logs, loggerId, logger }) {
     const navigate = useNavigate();
 
     return (
-        <div className='flex flex-wrap'>
-            <div>log1</div>
-            <div>log1</div>
-            <div>log1</div>
-            <div className='ms-2 bg-sky-300 rounded-full hover:opacity-50 w-14' onClick={() => navigate('/log/editor')}>
-                <Create />
-            </div>
+        <div className={views.style}>
+            <div className={views.createBtn.style} onClick={() => navigate(`/log/editor/${loggerId}/x/`)}>{views.createBtn.icon}</div>
+            {logs[loggerId] && logs[loggerId].map((log) => {
+                return <LogItem key={log.id} {...{ logger, log, views: views.item }} />
+            })}
         </div>
     )
 }
+
+{/* <div className='p-3' key={index}>
+{Object.entries(log).map((entry, i) => {
+    return <div key={i}>{entry[0]} : {entry[1]}</div>
+})}
+</div> */}

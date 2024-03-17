@@ -1,21 +1,16 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React from 'react'
 import { useParams } from 'react-router-dom'
-import VariableContext from '../../context/VariableContext';
 import LogRender from './LogRender';
+import Category from '../Loggers/Category';
 
-export default function Logs() {
+export default function Logs({ views, models }) {
     const { id } = useParams();
-    const { loggers, logs } = useContext(VariableContext);
-    const [logger, setLogger] = useState();
-
-    useEffect(() => {
-        setLogger(loggers[id]); // needs changing id <-> index
-    }, [])
-
+    const logger = models.loggers.find((logger) => logger.id === parseInt(id));
+    // console.log(logger.fields);
     return (
-        <div>
-            <LogRender {...{logs}} />
-            
+        <div className={views.style}>
+            <Category {...{ views: views.category }} />
+            <LogRender {...{ views: views.renderer, logs: models.logs, loggerId: id, logger }} />
         </div>
     )
 }
