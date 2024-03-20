@@ -69,7 +69,7 @@ const genericAppArchi = {
         loggerEditor: {
             style: 'pt-3 flex',
             leftPannel: {
-                style: 'flex-1',
+                style: 'flex-1 px-3',
                 header: {
                     style: 'flex justify-between mb-4',
                     title: {
@@ -77,13 +77,12 @@ const genericAppArchi = {
                         value: 'Create New Logger'
                     },
                     saveBtn: {
-                        style: 'bg-sky-500 text-4xl rounded-xl px-2 hover:opacity-50',
+                        style: 'bg-sky-500 text-sky-100 font-bold pb-1 text-4xl rounded-xl px-2 hover:opacity-50 border-2 border-sky-900',
                         icon: 'Save',
                         onclick: () => { console.log('save logger') }
                     },
                     updateBtn: {
-                        // onclick: () => { console.log('update logger') }
-                        onclick: (lo) => { console.log(lo) }
+                        onclick: () => { console.log('update logger') }
                     }
                 },
                 form: {
@@ -112,7 +111,7 @@ const genericAppArchi = {
                             style: 'flex-grow outline-none p-1 bg-sky-100 border-x-2 border-sky-900'
                         },
                         addBtn: {
-                            style: 'bg-sky-500 px-3 hover:opacity-50',
+                            style: 'bg-sky-500 text-sky-100 font-semibold px-3 hover:opacity-50',
                             icon: 'Add'
                         }
                     }
@@ -142,7 +141,7 @@ const genericAppArchi = {
 
             },
             rightPannel: {
-                style: 'flex-1'
+                style: 'flex-1 px-3'
             }
         },
 
@@ -258,3 +257,7 @@ genericAppArchi.views.logEditor.updateBtn.onclick = controller.updateLog;
 
 
 export default genericAppArchi;
+
+// divide architecture into smaller files
+// crud functions inside the view click with pass state
+// move dropdown inside ui folder of shared folder

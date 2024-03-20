@@ -1,13 +1,8 @@
 import React from 'react'
-import Edit from '../../../shared/icons/Edit';
-import Bin from '../../../shared/icons/Bin';
-import MoveDown from '../../../shared/icons/MoveDown';
-import MoveUp from '../../../shared/icons/MoveUp';
 
 export default function Fields({ views, logger, setLogger, updating, setUpdating }) {
     const onDelete = (indexToDelete) => {
         setLogger((prev) => ({ ...prev, fields: prev.fields.filter((_, index) => index !== indexToDelete) }))
-        // setFields(prevFields => prevFields.filter((_, index) => index !== indexToDelete));
     };
 
     const onMoveUp = (currentIndex) => {
@@ -17,11 +12,6 @@ export default function Fields({ views, logger, setLogger, updating, setUpdating
             [newFields[currentIndex - 1], newFields[currentIndex]] = [newFields[currentIndex], newFields[currentIndex - 1]];
             return { ...prev, fields: newFields };
         })
-        // setFields(prevFields => {
-        //     const newFields = [...prevFields];
-        //     [newFields[currentIndex - 1], newFields[currentIndex]] = [newFields[currentIndex], newFields[currentIndex - 1]];
-        //     return newFields;
-        // });
     };
 
     const onMoveDown = (currentIndex) => {
@@ -31,11 +21,6 @@ export default function Fields({ views, logger, setLogger, updating, setUpdating
             [newFields[currentIndex], newFields[currentIndex + 1]] = [newFields[currentIndex + 1], newFields[currentIndex]];
             return { ...prev, fields: newFields };
         })
-        // setFields(prevFields => {
-        //     const newFields = [...prevFields];
-        //     [newFields[currentIndex], newFields[currentIndex + 1]] = [newFields[currentIndex + 1], newFields[currentIndex]];
-        //     return newFields;
-        // });
     };
 
     return (

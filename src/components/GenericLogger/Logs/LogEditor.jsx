@@ -7,6 +7,10 @@ import Checkbox from '../../shared/ui/Checkbox';
 import Date from '../../shared/ui/Date';
 import Time from '../../shared/ui/Time';
 import DateTime from '../../shared/ui/DateTime';
+import Option from '../../shared/ui/Option';
+import MultipleSelect from '../../shared/ui/MultipleSelect';
+import Radio from '../../shared/ui/Radio';
+import KeyValuePair from '../../shared/ui/KeyValuePair';
 
 export default function LogEditor({ views, models }) {
     const { loggerId, logId } = useParams();
@@ -29,7 +33,7 @@ export default function LogEditor({ views, models }) {
     }
 
     return (
-        <div>
+        <div className='p-2'>
             <h1 className='text-xl'>{logger.title}</h1>
             <div className='pt-3 flex'>
                 {/* Left Pannel */}
@@ -37,7 +41,7 @@ export default function LogEditor({ views, models }) {
                     {logger.fields.map((field, index) => {
                         let ui;
                         const type = field.fieldType.trim().toLowerCase();
-                        const params = { label: field.fieldName, dumper, setDumper };
+                        const params = { label: field.fieldName, dumper, setDumper, field };
 
                         if (type === 'text') {
                             ui = <InputField {...params} />
@@ -51,6 +55,14 @@ export default function LogEditor({ views, models }) {
                             ui = <Time {...params} />
                         } else if (type === 'date time') {
                             ui = <DateTime {...params} />
+                        } else if (type === 'options') {
+                            ui = <Option {...params} />
+                        } else if (type === 'multiple select') {
+                            ui = <MultipleSelect {...params} />
+                        } else if (type === 'radio') {
+                            ui = <Radio {...params} />
+                        } else if (type === 'key value pair') {
+                            ui = <KeyValuePair {...params} />
                         }
                         return <div key={index} className='mb-1'>{ui}</div>
                     })}
@@ -60,7 +72,7 @@ export default function LogEditor({ views, models }) {
                 <div className='flex-1'></div>
             </div>
 
-            <button className='bg-sky-500' onClick={saveHandler}>save</button>
+            <button className='bg-sky-500 hover:bg-sky-600 text-sky-100 border-2 border-sky-900 rounded-md text-2xl w-1/4 py-1' onClick={saveHandler}>save</button>
         </div>
     )
 }

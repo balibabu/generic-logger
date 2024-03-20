@@ -6,7 +6,7 @@ import Category from '../Loggers/Category';
 export default function Logs({ views, models }) {
     const { id } = useParams();
     const logger = models.loggers.find((logger) => logger.id === parseInt(id));
-    // console.log(logger.fields);
+
     return (
         <div className={views.style}>
             <Category {...{ views: views.category }} />

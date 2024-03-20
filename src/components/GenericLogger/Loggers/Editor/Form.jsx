@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
 const dummyField = { fieldName: '', fieldType: 'Text' };
-export default function Form({ views, logger, setLogger, dropdownOps, updating, setUpdating }) {
-    const [field, setField] = useState(dummyField);
-
+export default function Form({ views, logger, setLogger, dropdownOps, updating, setUpdating, field, setField }) {
     useEffect(() => {
         if (updating !== null) {
             setField(logger.fields[updating]);
@@ -29,6 +27,10 @@ export default function Form({ views, logger, setLogger, dropdownOps, updating, 
         setField(dummyField);
     }
 
+    function onFieldChange(e) {
+        setField((prev) => ({ fieldName: prev.fieldName, fieldType: e.target.value }));
+    }
+
     return (
         <div className={views.style}>
             <div className={views.loggerName.style}>
@@ -46,7 +48,7 @@ export default function Form({ views, logger, setLogger, dropdownOps, updating, 
                     value={field.fieldName}
                     onChange={(e) => setField((prev) => ({ ...prev, fieldName: e.target.value }))}
                 />
-                <select className={views.fieldForm.options.style} value={field.fieldType} onChange={(e) => setField((prev) => ({ ...prev, fieldType: e.target.value }))}>
+                <select className={views.fieldForm.options.style} value={field.fieldType} onChange={onFieldChange}>
                     {dropdownOps.map((option, index) => <option key={index} value={option}>{option}</option>)}
                 </select>
                 {updating === null ?
@@ -61,26 +63,3 @@ export default function Form({ views, logger, setLogger, dropdownOps, updating, 
         </div>
     )
 }
-
-{/* <div className={views.style}>
-            <div className={views.loggerName.style}>
-                <label className={views.loggerName.label.style} htmlFor={views.loggerName.label.htmlFor}>{views.loggerName.label.value}</label>
-                <input type={views.loggerName.input.type} id={views.loggerName.input.id} className={views.loggerName.input.style}
-                    value={loggerName}
-                    onChange={(e) => setLoggerName(e.target.value)}
-                />
-            </div>
-
-            <div className={views.fieldForm.style}>
-                <input type={views.fieldForm.input.type}
-                    className={views.fieldForm.input.style}
-                    placeholder={views.fieldForm.input.placeholder}
-                    value={fieldName}
-                    onChange={(e) => setFieldName(e.target.value)}
-                />
-                <select className={views.fieldForm.options.style} value={fieldType} onChange={(e) => SetFieldType(e.target.value)}>
-                    {dropdownOps.map((option, index) => <option key={index} value={option}>{option}</option>)}
-                </select>
-                <button className={views.fieldForm.addBtn.style} onClick={addField}>{views.fieldForm.addBtn.icon}</button>
-            </div>
-        </div> */}
