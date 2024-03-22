@@ -1,6 +1,14 @@
 import React, { useEffect } from 'react'
 
-export default function Date({ label, dumper, setDumper }) {
+export default function DateField({ label, dumper, setDumper, field }) {
+
+    useEffect(() => {
+        if (field.autoAdd) {
+            const currentDate = new Date().toISOString().split('T')[0];
+            setDumper((prev) => ({ ...prev, [field.fieldName]: currentDate }));
+        }
+    }, [])
+
 
     function changeHandler(e) {
         setDumper((prev) => ({ ...prev, [label]: e.target.value }));

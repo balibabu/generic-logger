@@ -1,5 +1,5 @@
 import React from 'react'
-import Chip from './Radio/Chip'
+import Chip from './Chip'
 
 export default function Radio({ field, dumper, setDumper }) {
 

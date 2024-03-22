@@ -7,7 +7,7 @@ import MoveUp from "../shared/icons/MoveUp";
 import Confirmation from "../shared/utility/Confirmation";
 
 const dummyLoggers = [
-    { id: 1, title: 'Logger1', fields: [{ fieldName: "name", fieldType: 'Text' }, { fieldName: "description", fieldType: 'Large Text' }] },
+    { id: 1, title: 'Logger1', fields: [{ fieldName: "name", fieldType: 'Text' }, { fieldName: "description", fieldType: 'Large Text' }, { fieldName: "Radio", fieldType: 'Radio', options: ['hi', 'hello'] }, { fieldName: "Multiple Select", fieldType: 'Multiple Select', options: ['hi', 'hello'] }, { fieldName: "Date Time", fieldType: 'Date Time' }, { fieldName: "Date", fieldType: 'Date' }, { fieldName: "Time", fieldType: 'Time' }, { fieldName: "Checkbox", fieldType: 'Checkbox' }, { fieldName: "Key Value Pair", fieldType: 'Key Value Pair' }, { fieldName: "Options", fieldType: 'Options', options: ['hi', 'hello'] }] },
     { id: 2, title: 'Logger2', fields: [{ fieldName: "check", fieldType: 'Checkbox' }, { fieldName: "date", fieldType: 'Date' }] },
 ]
 
@@ -24,19 +24,19 @@ const genericAppArchi = {
 
     views: {
         loggers: {
-            style: '',
+            style: 'ms-6',
             category: {
-                style: 'm-3 flex text-sky-100',
+                style: 'my-5 flex text-sky-100 font-semibold text-xl',
                 item: {
                     style: 'px-3 cursor-pointer',
-                    selected: 'underline text-sky-300',
+                    selected: 'underline text-sky-300 font-bold text-2xl',
                     unselected: 'hover:text-sky-300'
                 }
             },
             renderer: {
                 style: 'flex flex-wrap',
                 createBtn: {
-                    style: 'ms-2 bg-sky-300 rounded-xl hover:opacity-50 w-14 h-14',
+                    style: 'bg-sky-300 rounded-xl hover:opacity-50 w-14 h-14',
                     icon: <Create />,
                     navigate: '/logger/editor/x'
                 },

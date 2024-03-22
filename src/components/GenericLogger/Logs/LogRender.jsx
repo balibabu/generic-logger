@@ -14,9 +14,3 @@ export default function LogRender({ views, logs, loggerId, logger }) {
         </div>
     )
 }
-
-{/* <div className='p-3' key={index}>
-{Object.entries(log).map((entry, i) => {
-    return <div key={i}>{entry[0]} : {entry[1]}</div>
-})}
-</div> */}

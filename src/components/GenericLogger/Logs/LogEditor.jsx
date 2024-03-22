@@ -4,12 +4,12 @@ import { useNavigate, useParams } from 'react-router-dom';
 import VariableContext from '../../context/VariableContext';
 import LargeText from '../../shared/ui/LargeText';
 import Checkbox from '../../shared/ui/Checkbox';
-import Date from '../../shared/ui/Date';
+import DateField from '../../shared/ui/DateField';
 import Time from '../../shared/ui/Time';
 import DateTime from '../../shared/ui/DateTime';
 import Option from '../../shared/ui/Option';
-import MultipleSelect from '../../shared/ui/MultipleSelect';
-import Radio from '../../shared/ui/Radio';
+import MultipleSelect from '../../shared/ui/MultipleSelect/MultipleSelect';
+import Radio from '../../shared/ui/Radio/Radio';
 import KeyValuePair from '../../shared/ui/KeyValuePair';
 
 export default function LogEditor({ views, models }) {
@@ -50,7 +50,7 @@ export default function LogEditor({ views, models }) {
                         } else if (type === 'checkbox') {
                             ui = <Checkbox {...params} />
                         } else if (type === 'date') {
-                            ui = <Date {...params} />
+                            ui = <DateField {...params} />
                         } else if (type === 'time') {
                             ui = <Time {...params} />
                         } else if (type === 'date time') {

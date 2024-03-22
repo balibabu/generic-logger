@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import Chips from './MultipleSelect/Chips'
+import Chips from './Chips'
 
 export default function MultipleSelect({ field, dumper, setDumper }) {
     useEffect(() => {

@@ -60,7 +60,7 @@ export default function Options({ field, setField }) {
             <div className='m-2'>
                 <div className='flex text-2xl rounded-md overflow-hidden border-2 border-sky-900 mb-2'>
                     <input className='flex-grow outline-none p-1 bg-sky-100' type="text" value={optionItem} onChange={(e) => setOptionItem(e.target.value)} />
-                    <button className='bg-sky-500 px-3 hover:bg-sky-600 text-sky-100 border-s-2 border-sky-900' onClick={isUpdating ? updateOption : addOption}>{isUpdating ? 'update' : 'add'}</button>
+                    <button className='bg-sky-500 px-3 hover:bg-sky-600 text-sky-100 border-s-2 border-sky-900 w-3/12' onClick={isUpdating ? updateOption : addOption}>{isUpdating ? 'update' : 'add'}</button>
                 </div>
                 {field.options && field.options.map((op, index) => <div key={index} className='flex mt-2 text-center'>
                     <div className='flex-grow text-2xl rounded-md border-2 border-sky-900 me-2 bg-sky-300'>

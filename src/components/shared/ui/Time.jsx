@@ -1,6 +1,14 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
-export default function Time({ label, dumper, setDumper }) {
+export default function Time({ label, dumper, setDumper, field }) {
+
+    useEffect(() => {
+        if (field.autoAdd) {
+            const currentTime = new Date().toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit' });
+            setDumper((prev) => ({ ...prev, [field.fieldName]: currentTime }));
+        }
+    }, [])
+
 
     function changeHandler(e) {
         setDumper((prev) => ({ ...prev, [label]: e.target.value }));

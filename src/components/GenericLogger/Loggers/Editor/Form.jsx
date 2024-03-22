@@ -11,7 +11,7 @@ export default function Form({ views, logger, setLogger, dropdownOps, updating, 
 
     function addField() {
         if (field.fieldName && field.fieldType) {
-            setLogger((prev) => ({ ...prev, fields: [field, ...prev.fields] }))
+            setLogger((prev) => ({ ...prev, fields: [...prev.fields, field] }))
             setField(dummyField);
         }
     }
