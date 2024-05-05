@@ -14,21 +14,23 @@ import KeyValuePair from '../../shared/ui/KeyValuePair';
 
 export default function LogEditor({ views, models }) {
     const { loggerId, logId } = useParams();
-    const logger = models.loggers.find((logger) => logger.id === parseInt(loggerId));
+    const isNew = logId === 'new';
+    const logger = models.loggers.find((logger) => logger.id === loggerId);
     const [dumper, setDumper] = useState({});
     const navigate = useNavigate();
-    const [button, setButton] = useState(isNaN(logId) ? views.saveBtn : views.updateBtn);
+    const [button, setButton] = useState(isNew ? views.saveBtn : views.updateBtn);
 
     useEffect(() => {
-        if (!isNaN(logId)) {
-            const oldVal = models.logs[parseInt(loggerId)].find((log) => log.id === parseInt(logId));
+        if (!isNew) {
+            const oldVal = models.logs.find((log) => log.id === logId);
             setDumper(oldVal);
         }
     }, [])
 
     function saveHandler() {
         navigate(-1);
-        button.onclick(loggerId, dumper);
+        const log = { ...dumper, loggerId };
+        button.onclick(log);
         setDumper({});
     }
 

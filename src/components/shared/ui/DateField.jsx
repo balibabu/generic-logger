@@ -11,7 +11,7 @@ export default function DateField({ label, dumper, setDumper, field }) {
 
 
     function changeHandler(e) {
-        setDumper((prev) => ({ ...prev, [label]: e.target.value }));
+        setDumper((prev) => ({ ...prev, [label]: formatDateToString(e.target.value) }));
     }
 
     return (
@@ -20,4 +20,13 @@ export default function DateField({ label, dumper, setDumper, field }) {
             <input type="date" className='text-sky-800 bg-sky-100' value={dumper[label] || ''} onChange={changeHandler} />
         </div>
     )
+}
+
+
+function formatDateToString(value) {
+    const date = new Date(value);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
 }

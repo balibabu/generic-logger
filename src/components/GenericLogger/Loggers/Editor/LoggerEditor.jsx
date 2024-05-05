@@ -1,30 +1,31 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Form from './Form';
 import Fields from './Fields';
 import { useNavigate, useParams } from 'react-router-dom';
-import Options from './Option/Options';
 import OptionReq from './Option/OptionReq';
 
 const dummyLogger = { title: '', fields: [] }
 const dummyField = { fieldName: '', fieldType: 'Text' };
 export default function LoggerEditor({ views, loggers }) {
+    const { loggerId } = useParams();
+    const isNew = loggerId === 'new';
     const [dropdownOps,] = useState('Text, Large Text, Checkbox, Options, Date, Time, Date Time, Key Value Pair, Multiple Select, Radio'.split(','));
     const [field, setField] = useState(dummyField);
-    const { loggerId } = useParams();
     const [logger, setLogger] = useState(dummyLogger);
-    const [button,] = useState(isNaN(loggerId) ? views.leftPannel.header.saveBtn : views.leftPannel.header.updateBtn);
+    const [button,] = useState(isNew ? views.leftPannel.header.saveBtn : views.leftPannel.header.updateBtn);
     const [updating, setUpdating] = useState(null);
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (!isNaN(loggerId)) {
-            const logger = loggers.find((logger) => logger.id === parseInt(loggerId));
+        if (!isNew) {
+            const logger = loggers.find((logger) => logger.id === loggerId);
             setLogger(logger);
         }
     }, [])
 
 
     const saveLogger = () => {
+        if (checkDuplicateLogger(loggers, logger)) { return }
         button.onclick(logger);
         setLogger(dummyLogger);
         navigate(-1);
@@ -46,9 +47,19 @@ export default function LoggerEditor({ views, loggers }) {
 
             {/* Right Pannel */}
             <div className={views.rightPannel.style}>
-                <OptionReq {...{ logger, setLogger, field, setField }}/>
+                <OptionReq {...{ logger, setLogger, field, setField }} />
             </div>
         </div>
     )
 }
 
+
+function checkDuplicateLogger(loggers, logger) {
+    for (const _logger of loggers) {
+        if (_logger.title === logger.title) {
+            alert('tile already present');
+            return true;
+        }
+    }
+    return false;
+}

@@ -6,10 +6,10 @@ import MoveDown from "../shared/icons/MoveDown";
 import MoveUp from "../shared/icons/MoveUp";
 import Confirmation from "../shared/utility/Confirmation";
 
-const dummyLoggers = [
-    { id: 1, title: 'Logger1', fields: [{ fieldName: "name", fieldType: 'Text' }, { fieldName: "description", fieldType: 'Large Text' }, { fieldName: "Radio", fieldType: 'Radio', options: ['hi', 'hello'] }, { fieldName: "Multiple Select", fieldType: 'Multiple Select', options: ['hi', 'hello'] }, { fieldName: "Date Time", fieldType: 'Date Time' }, { fieldName: "Date", fieldType: 'Date' }, { fieldName: "Time", fieldType: 'Time' }, { fieldName: "Checkbox", fieldType: 'Checkbox' }, { fieldName: "Key Value Pair", fieldType: 'Key Value Pair' }, { fieldName: "Options", fieldType: 'Options', options: ['hi', 'hello'] }] },
-    { id: 2, title: 'Logger2', fields: [{ fieldName: "check", fieldType: 'Checkbox' }, { fieldName: "date", fieldType: 'Date' }] },
-]
+// const dummyLoggers = [
+//     { id: 1, title: 'Logger1', fields: [{ fieldName: "name", fieldType: 'Text' }, { fieldName: "description", fieldType: 'Large Text' }, { fieldName: "Radio", fieldType: 'Radio', options: ['hi', 'hello'] }, { fieldName: "Multiple Select", fieldType: 'Multiple Select', options: ['hi', 'hello'] }, { fieldName: "Date Time", fieldType: 'Date Time' }, { fieldName: "Date", fieldType: 'Date' }, { fieldName: "Time", fieldType: 'Time' }, { fieldName: "Checkbox", fieldType: 'Checkbox' }, { fieldName: "Key Value Pair", fieldType: 'Key Value Pair' }, { fieldName: "Options", fieldType: 'Options', options: ['hi', 'hello'] }] },
+//     { id: 2, title: 'Logger2', fields: [{ fieldName: "check", fieldType: 'Checkbox' }, { fieldName: "date", fieldType: 'Date' }] },
+// ]
 
 // during testing purpose only
 let loggerId = 2;
@@ -18,8 +18,8 @@ let logId = 0;
 
 const genericAppArchi = {
     models: {
-        loggers: [...dummyLoggers],
-        logs: {}
+        loggers: [],
+        logs: []
     },
 
     views: {
@@ -38,7 +38,7 @@ const genericAppArchi = {
                 createBtn: {
                     style: 'bg-sky-300 rounded-xl hover:opacity-50 w-14 h-14',
                     icon: <Create />,
-                    navigate: '/logger/editor/x'
+                    navigate: '/logger/editor/new'
                 },
                 item: {
                     style: 'flex ms-2 bg-sky-300 rounded-xl cursor-pointer h-14 ps-5 mb-2',
@@ -162,11 +162,11 @@ const genericAppArchi = {
                     icon: <Create />,
                 },
                 item: {
-                    style: 'mx-2 p-2 bg-sky-300 rounded-xl cursor-pointer',
+                    style: 'mx-2 bg-sky-300 rounded-xl cursor-pointer',
                     dropdown: {
                         style: 'relative',
                         menuBtn: {
-                            style: '',
+                            style: 'h-14',
                             icon: <DropdownDots />
                         },
                         menuItems: {
@@ -208,7 +208,7 @@ const controller = {
     deleteLogger: (id) => {
         if (Confirmation('are you sure ?')) {
             genericAppArchi.setState((prev) => {
-                const loggers = prev.models.loggers.filter((logger) => logger.id != id);
+                const loggers = prev.models.loggers.filter((logger) => logger.id !== id);
                 return { ...prev, models: { ...prev.models, loggers: [...loggers] } }
             });
         }
@@ -248,12 +248,12 @@ const controller = {
 }
 
 // genericAppArchi.controller = controller;
-genericAppArchi.views.loggerEditor.leftPannel.header.saveBtn.onclick = controller.addLogger;
-genericAppArchi.views.loggerEditor.leftPannel.header.updateBtn.onclick = controller.updateLogger;
-genericAppArchi.views.loggers.renderer.item.dropdown.menuItems.items[0].onclick = controller.deleteLogger;
-genericAppArchi.views.logEditor.saveBtn.onclick = controller.addLog;
-genericAppArchi.views.logs.renderer.item.dropdown.menuItems.items[0].onclick = controller.deleteLog;
-genericAppArchi.views.logEditor.updateBtn.onclick = controller.updateLog;
+// genericAppArchi.views.loggerEditor.leftPannel.header.saveBtn.onclick = controller.addLogger;
+// genericAppArchi.views.loggerEditor.leftPannel.header.updateBtn.onclick = controller.updateLogger;
+// genericAppArchi.views.loggers.renderer.item.dropdown.menuItems.items[0].onclick = controller.deleteLogger;
+// genericAppArchi.views.logEditor.saveBtn.onclick = controller.addLog;
+// genericAppArchi.views.logs.renderer.item.dropdown.menuItems.items[0].onclick = controller.deleteLog;
+// genericAppArchi.views.logEditor.updateBtn.onclick = controller.updateLog;
 
 
 export default genericAppArchi;
